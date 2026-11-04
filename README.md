@@ -7,6 +7,7 @@
 ## 设计资料
 
 - [产品与界面规范](docs/product-design.md)
+- [统一视觉与交互规范](docs/design-system.md)
 - [架构、接口验收与版本发布约定](docs/architecture-and-releases.md)
 - [词书来源核查](docs/content-sources.md)
 - [变更记录](CHANGELOG.md)

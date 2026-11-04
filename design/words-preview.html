@@ -1,21 +1,23 @@
 <div id="words-preview" class="viz-dotted-background">
-  <div class="preview-label">第二版设计预览 · 示例数据 · 本次交互内有效</div>
+  <div class="preview-label">第三版设计预览 · 示例数据 · 本次交互内有效</div>
   <div class="words-phone" aria-label="拾词安卓界面设计">
     <div class="phone-status"><span>9:41</span><span>拾词 · 设计稿</span><i data-lucide="battery-full" aria-hidden="true"></i></div>
     <div id="words-screen"></div>
     <div id="words-dialog" hidden></div>
+    <div id="words-picker" hidden></div>
   </div>
-  <p class="preview-caption">试试新建词本、添加单词，或在设置中调整主题。</p>
+  <p class="preview-caption">点击“本次上下文”查看新的选择浮层；设置里可调整主题和透明效果。</p>
 </div>
 <style>
-#words-preview { --wp-bg:light-dark(#f8f8f2,#1e211c); --wp-fg:light-dark(#283227,#e7eadf); --wp-muted:light-dark(#656e60,#b0b7a6); --wp-line:light-dark(#dfe3d6,#42493d); --wp-soft:light-dark(#ecefe3,#2b3226); --wp-accent:light-dark(#4f633e,#c1d4a6); --wp-onaccent:light-dark(#fffef8,#202a19); --wp-paper:light-dark(#fffffb,#292e25); --wp-wash:light-dark(#e3e8d4,#343f29); --wp-reading:19px; --wp-atmosphere:1; color:var(--wp-fg); padding:16px 0; }
+#words-preview { --wp-bg:light-dark(#f8f8f2,#1e211c); --wp-fg:light-dark(#283227,#e7eadf); --wp-muted:light-dark(#656e60,#b0b7a6); --wp-line:light-dark(#dfe3d6,#42493d); --wp-soft:light-dark(#ecefe3,#2b3226); --wp-accent:light-dark(#4f633e,#c1d4a6); --wp-onaccent:light-dark(#fffef8,#202a19); --wp-paper:light-dark(#fffffb,#292e25); --wp-wash:light-dark(#e3e8d4,#343f29); --wp-glass:light-dark(#fffffbdc,#292e25ec); --wp-glass-edge:light-dark(#ffffffc9,#ffffff1c); --wp-shadow:light-dark(#25321818,#0000004d); --wp-radius-control:17px; --wp-radius-panel:25px; --wp-reading:19px; --wp-atmosphere:1; color:var(--wp-fg); padding:16px 0; }
 #words-preview * { box-sizing:border-box; }
 #words-preview [hidden] { display:none !important; }
 #words-preview .preview-label,#words-preview .preview-caption { text-align:center; font:12px/1.7 system-ui,sans-serif; color:var(--wp-muted); margin:0 0 14px; }
 #words-preview .preview-caption { margin:15px 8px 0; }
 #words-preview .words-phone { width:min(100%,390px); margin:auto; position:relative; background:var(--wp-bg); border:1px solid var(--wp-line); border-radius:30px; overflow:hidden; font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
 #words-preview button { font:inherit; color:inherit; cursor:inherit; }
-#words-preview button:focus-visible { outline:3px solid var(--wp-accent); outline-offset:3px; }
+#words-preview :is(button,input,textarea):focus-visible { outline:2px solid var(--wp-accent); outline-offset:3px; }
+#words-preview ::selection { background:var(--wp-soft); color:var(--wp-fg); }
 #words-preview button:disabled { opacity:.55; }
 #words-preview .phone-status { height:45px; display:flex; justify-content:space-between; align-items:center; padding:0 23px; font-size:12px; font-weight:500; }
 #words-preview .phone-status svg { width:20px; height:20px; }
@@ -37,14 +39,14 @@
 #words-preview .stats>div+div { border-left:1px solid var(--wp-line); padding-left:24px; }
 #words-preview .number { font:400 36px/1.4 Georgia,serif; }
 #words-preview .number small { font:13px/1.5 system-ui; color:var(--wp-muted); }
-#words-preview .primary { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; border:0; border-radius:14px; padding:14px 16px; background:var(--wp-accent); color:var(--wp-onaccent); font-size:15px; min-height:50px; }
-#words-preview .secondary { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:1px solid var(--wp-line); border-radius:14px; padding:12px; background:transparent; min-height:48px; }
+#words-preview .primary { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; border:0; border-radius:var(--wp-radius-control); padding:14px 16px; background:var(--wp-accent); color:var(--wp-onaccent); font-size:15px; min-height:50px; }
+#words-preview .secondary { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:1px solid var(--wp-line); border-radius:var(--wp-radius-control); padding:12px; background:var(--wp-paper); min-height:48px; }
 #words-preview .text-button { border:0; background:transparent; padding:10px 0; color:var(--wp-accent); min-height:44px; }
-#words-preview .icon-button { background:transparent; border:0; padding:10px; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; }
+#words-preview .icon-button { background:transparent; border:0; border-radius:50%; padding:10px; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; }
 #words-preview .section-link { border:0; border-top:1px solid var(--wp-line); padding:20px 0 0; text-align:left; background:transparent; width:100%; display:flex; align-items:center; justify-content:space-between; margin-top:27px; }
-#words-preview .nav { display:flex; border-top:1px solid var(--wp-line); padding:7px 13px 15px; background:var(--wp-bg); }
-#words-preview .nav button { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--wp-muted); border:0; background:transparent; min-height:54px; padding:6px; font-size:11px; }
-#words-preview .nav button[aria-current="page"] { color:var(--wp-accent); font-weight:500; }
+#words-preview .nav { display:flex; gap:4px; margin:0 15px 17px; border:1px solid var(--wp-line); border-radius:28px; padding:6px; background:var(--wp-paper); box-shadow:0 6px 22px var(--wp-shadow); }
+#words-preview .nav button { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--wp-muted); border:0; border-radius:22px; background:transparent; min-height:54px; padding:6px; font-size:11px; }
+#words-preview .nav button[aria-current="page"] { color:var(--wp-accent); background:var(--wp-soft); font-weight:500; }
 #words-preview svg { width:18px; height:18px; flex-shrink:0; }
 #words-preview .session-top { display:flex; align-items:center; justify-content:space-between; padding:0 13px; }
 #words-preview .progress-track { height:3px; background:var(--wp-soft); margin:9px 25px 0; }
@@ -73,8 +75,11 @@
 #words-preview .reading-cn { border-top:1px solid var(--wp-line); padding-top:18px; font:15px/1.9 system-ui; }
 #words-preview .completed { text-align:center; padding:38px 0; }
 #words-preview .completed svg { width:33px; height:33px; color:var(--wp-accent); margin:0 auto 18px; }
-#words-preview #words-dialog { position:absolute; inset:0; z-index:10; background:light-dark(#1b251866,#0008); display:flex; align-items:flex-end; }
-#words-preview .sheet { background:var(--wp-paper); width:100%; padding:22px 25px 30px; border-radius:24px 24px 0 0; border-top:1px solid var(--wp-line); }
+#words-preview #words-dialog { position:absolute; inset:0; z-index:30; background:light-dark(#1b251829,#0006); display:flex; align-items:flex-end; padding-bottom:12px; }
+#words-preview .sheet { background:var(--wp-paper); width:calc(100% - 20px); margin:0 10px; padding:19px 20px 23px; border-radius:var(--wp-radius-panel); border:1px solid var(--wp-line); box-shadow:0 12px 36px var(--wp-shadow); }
+#words-preview .sheet:before { content:""; display:block; margin:0 auto 14px; width:32px; height:4px; background:var(--wp-line); border-radius:4px; }
+#words-preview .sheet>.row .icon-button { background:var(--wp-soft); min-width:34px; min-height:34px; width:34px; height:34px; padding:8px; }
+#words-preview .sheet h2 { font-size:21px; }
 #words-preview .sheet p { margin:13px 0; }
 #words-preview .sheet-word { font:29px/1.4 Georgia,serif; }
 #words-preview .library-head { display:flex; justify-content:space-between; align-items:center; margin:8px 0 18px; }
@@ -93,9 +98,23 @@
 #words-preview .subhead { display:flex; align-items:center; gap:10px; margin:0 -10px 19px; }
 #words-preview .subhead h1 { font-size:24px; overflow-wrap:anywhere; }
 #words-preview .subhead .icon-button { flex-shrink:0; }
-#words-preview input:not([type=checkbox]):not([type=range]),#words-preview select,#words-preview textarea { display:block; width:100%; min-width:0; min-height:46px; font:16px/1.5 system-ui,sans-serif; color:var(--wp-fg); background:var(--wp-paper); border:1px solid var(--wp-line); border-radius:10px; padding:10px 12px; box-sizing:border-box; }
-#words-preview input[type=checkbox] { width:20px; height:20px; accent-color:var(--wp-accent); flex-shrink:0; }
-#words-preview input[type=range] { width:100%; accent-color:var(--wp-accent); }
+#words-preview input:not([type=checkbox]):not([type=range]),#words-preview textarea { display:block; width:100%; min-width:0; min-height:48px; font:15px/1.6 system-ui,sans-serif; color:var(--wp-fg); background:var(--wp-paper); border:1px solid var(--wp-line); border-radius:var(--wp-radius-control); padding:12px 14px; box-sizing:border-box; }
+#words-preview :is(input,textarea):disabled { opacity:1; color:var(--wp-muted); background:var(--wp-soft); }
+#words-preview input[type=number] { appearance:textfield; -moz-appearance:textfield; }
+#words-preview input[type=number]::-webkit-inner-spin-button,#words-preview input[type=number]::-webkit-outer-spin-button { appearance:none; -webkit-appearance:none; margin:0; }
+#words-preview input[type=checkbox] { appearance:none; -webkit-appearance:none; position:relative; width:22px; height:22px; border:1.5px solid var(--wp-line); border-radius:7px; background:var(--wp-paper); flex-shrink:0; margin:0; }
+#words-preview input[type=checkbox]:checked { background:var(--wp-accent); border-color:var(--wp-accent); }
+#words-preview input[type=checkbox]:checked:after { content:""; position:absolute; width:5px; height:10px; border:solid var(--wp-onaccent); border-width:0 2px 2px 0; left:7px; top:3px; transform:rotate(45deg); }
+#words-preview input[type=checkbox]:disabled { opacity:.55; }
+#words-preview input[type=checkbox][data-setting] { width:45px; height:27px; border-radius:16px; border:0; background:var(--wp-line); }
+#words-preview input[type=checkbox][data-setting]:after { content:""; position:absolute; width:21px; height:21px; top:3px; left:3px; border:0; border-radius:50%; transform:none; background:var(--wp-paper); box-shadow:0 1px 3px var(--wp-shadow); transition:transform .16s ease; }
+#words-preview input[type=checkbox][data-setting]:checked { background:var(--wp-accent); }
+#words-preview input[type=checkbox][data-setting]:checked:after { transform:translateX(18px); background:var(--wp-onaccent); }
+#words-preview input[type=range] { appearance:none; -webkit-appearance:none; width:100%; height:28px; background:transparent; margin:0; }
+#words-preview input[type=range]::-webkit-slider-runnable-track { height:5px; background:var(--wp-line); border-radius:5px; }
+#words-preview input[type=range]::-webkit-slider-thumb { appearance:none; -webkit-appearance:none; height:22px; width:22px; border:2px solid var(--wp-accent); border-radius:50%; margin-top:-8.5px; background:var(--wp-paper); box-shadow:0 2px 5px var(--wp-shadow); }
+#words-preview input[type=range]::-moz-range-track { height:5px; background:var(--wp-line); border-radius:5px; }
+#words-preview input[type=range]::-moz-range-thumb { height:18px; width:18px; border:2px solid var(--wp-accent); border-radius:50%; background:var(--wp-paper); }
 #words-preview .field { display:block; margin:17px 0; font-size:13px; }
 #words-preview .field>span { display:block; margin-bottom:7px; }
 #words-preview .check-row { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:13px 0; min-height:48px; border-bottom:1px solid var(--wp-line); }
@@ -108,6 +127,7 @@
 #words-preview .setting-link { display:flex; align-items:center; justify-content:space-between; width:100%; border:0; border-bottom:1px solid var(--wp-line); padding:15px 0; min-height:50px; text-align:left; background:transparent; }
 #words-preview .error { color:light-dark(#9f352c,#ffb4a9); font-size:13px; }
 #words-preview .danger { color:light-dark(#9f352c,#ffb4a9); }
+#words-preview .primary[data-action=confirm-delete] { color:light-dark(#fffaf8,#381b17); background:light-dark(#a74539,#efb6ab); }
 #words-preview .no-words { padding:25px 0; color:var(--wp-muted); }
 #words-preview .catalog-row { padding:18px 0; border-bottom:1px solid var(--wp-line); }
 #words-preview .catalog-row h3 { margin-bottom:6px; }
@@ -121,20 +141,51 @@
 #words-preview[data-palette=blue] { --wp-accent:light-dark(#405c75,#b1cee6); --wp-onaccent:light-dark(#fff,#172632); --wp-soft:light-dark(#e8edf2,#293541); --wp-wash:light-dark(#dce7f1,#2e3c48); }
 #words-preview[data-palette=plum] { --wp-accent:light-dark(#745664,#dfbece); --wp-onaccent:light-dark(#fff,#30212b); --wp-soft:light-dark(#f0e8ed,#3a2d35); --wp-wash:light-dark(#eddee7,#47343f); }
 #words-preview[data-highlight=off] .target-word { color:inherit; background:transparent; text-decoration:none; }
+#words-preview .choice-trigger { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:52px; padding:13px 15px; text-align:left; border:1px solid var(--wp-line); border-radius:var(--wp-radius-control); background:var(--wp-paper); font-size:15px; line-height:1.5; box-shadow:inset 0 1px 0 var(--wp-glass-edge); }
+#words-preview .choice-trigger>span { overflow-wrap:anywhere; }
+#words-preview .choice-trigger[aria-expanded=true] { border-color:var(--wp-accent); }
+#words-preview .choice-trigger:disabled { opacity:1; color:var(--wp-muted); background:var(--wp-soft); box-shadow:none; }
+#words-preview .choice-trigger svg { color:var(--wp-muted); width:16px; height:16px; }
+#words-preview #words-picker { position:absolute; inset:0; z-index:20; background:light-dark(#1b251805,#0000000d); }
+#words-preview .picker-panel { position:absolute; padding:8px; background:var(--wp-paper); border:1px solid var(--wp-line); border-radius:var(--wp-radius-panel); box-shadow:0 18px 48px var(--wp-shadow),0 3px 10px var(--wp-shadow); transform-origin:50% 0; animation:wp-picker-in .16s ease-out; }
+#words-preview .picker-title { padding:10px 12px 9px; color:var(--wp-muted); font-size:12px; letter-spacing:.2px; }
+#words-preview .picker-option { width:100%; display:flex; align-items:center; gap:12px; min-height:50px; border:0; border-radius:17px; background:transparent; text-align:left; padding:13px 12px; }
+#words-preview .picker-option+.picker-option { margin-top:3px; }
+#words-preview .picker-option[aria-checked=true] { background:var(--wp-soft); color:var(--wp-accent); }
+#words-preview .picker-option .option-copy { flex:1; min-width:0; }
+#words-preview .picker-option .option-label { display:block; font-size:15px; line-height:1.5; }
+#words-preview .picker-option .option-detail { display:block; color:var(--wp-muted); font-size:12px; line-height:1.6; margin-top:3px; }
+#words-preview .option-icon { display:flex; align-items:center; justify-content:center; width:23px; }
+#words-preview .check-space { width:18px; flex-shrink:0; }
+#words-preview .field:has(.choice-trigger) { display:block; }
+#words-preview .chat-empty { margin:25px 0; padding:22px 0; }
+#words-preview .chat-empty h2 { font-size:25px; }
+#words-preview .glass-note { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--wp-muted); }
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  #words-preview .nav,#words-preview .sheet,#words-preview .picker-panel { background:var(--wp-glass); border-color:var(--wp-glass-edge); backdrop-filter:blur(22px) saturate(1.18); -webkit-backdrop-filter:blur(22px) saturate(1.18); }
+}
+#words-preview[data-transparency=reduced] :is(.nav,.sheet,.picker-panel) { background:var(--wp-paper); border-color:var(--wp-line); backdrop-filter:none; -webkit-backdrop-filter:none; }
+@media(prefers-reduced-transparency:reduce) { #words-preview :is(.nav,.sheet,.picker-panel) { background:var(--wp-paper); border-color:var(--wp-line); backdrop-filter:none; -webkit-backdrop-filter:none; } }
+@media(hover:hover) { #words-preview :is(.picker-option,.icon-button,.smart-item):hover { background:var(--wp-soft); } }
+@keyframes wp-picker-in { from { transform:translateY(-3px) scale(.99); } to { transform:none; } }
 @media(max-width:360px) { #words-preview .words-phone { border-radius:23px; } #words-preview .inner { padding-left:20px; padding-right:20px; } #words-preview .word-focus h1 { font-size:38px; } }
-@media(prefers-reduced-motion:reduce) { #words-preview .progress-fill { transition:none; } }
+@media(prefers-reduced-motion:reduce) { #words-preview .progress-fill,#words-preview input[type=checkbox]:after { transition:none; } #words-preview .picker-panel { animation:none; } }
 </style>
 <script>
 (() => {
 const root=document.getElementById('words-preview');
 const screen=root.querySelector('#words-screen');
 const dialog=root.querySelector('#words-dialog');
+const picker=root.querySelector('#words-picker');
+const pickerConfigs=new Map();
+let pickerTrigger=null;
+let activePicker=null;
 const words=[
  {word:'resilient',ipa:'/rɪˈzɪliənt/',meaning:'有韧性的；能恢复的',example:'A resilient community can recover from unexpected setbacks.',translation:'一个有韧性的社区能够从意外的挫折中恢复过来。',explain:'resilient 强调经历困难后能够恢复。strong 更侧重力量或强度；resilient 则包含“受挫后重新站起来”的意思。常见搭配：a resilient economy。'},
  {word:'subtle',ipa:'/ˈsʌtl/',meaning:'细微的；不易察觉的',example:'Small gardens can bring subtle changes to city life.',translation:'小花园可以给城市生活带来细微的变化。',explain:'subtle 指细微、不明显或需要仔细体会的特点。a subtle difference 是“不易察觉的差异”。注意拼写中的 b 不发音。'},
  {word:'sustain',ipa:'/səˈsteɪn/',meaning:'维持；使持续',example:'Shared responsibility helps sustain the project.',translation:'共同承担责任有助于让这个项目持续下去。',explain:'sustain 常用于维持某种活动、增长或努力。sustain growth 表示“维持增长”；sustain an effort 表示“坚持投入努力”。'}
 ];
-let state={page:'books',index:0,revealed:false,learned:[],mistakes:[],saved:[1],reviewed:[],session:'learn',filter:'all',translation:false,notebooks:[{id:1,name:'阅读摘词',words:[1]}],nextBookId:2,bookId:1,smart:'saved',catalog:'all',theme:'system',palette:'olive',language:'zh',fontSize:19,atmosphere:true,highlight:true,dailyGoal:20,pronunciation:'uk',aiLanguage:'zh'};
+let state={page:'chat',index:0,revealed:false,learned:[],mistakes:[],saved:[1],reviewed:[],session:'learn',filter:'all',translation:false,notebooks:[{id:1,name:'阅读摘词',words:[1]}],nextBookId:2,bookId:1,smart:'saved',catalog:'all',theme:'system',palette:'olive',language:'zh',fontSize:19,atmosphere:true,highlight:true,dailyGoal:20,pronunciation:'uk',aiLanguage:'zh',context:'free',reduceTransparency:false};
 const en=()=>state.language==='en'||(state.language==='system'&&!navigator.language.toLowerCase().startsWith('zh'));
 const t=(zh,english)=>en()?english:zh;
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -160,13 +211,60 @@ function api(){return `<section class="page"><div class="inner">${backHeader('De
 function chat(){return `<section class="page"><div class="inner"><div class="eyebrow">YOUR LANGUAGE COMPANION</div><div class="library-head"><h1>${t('AI 助手','AI companion')}</h1><button class="icon-button cursor-interaction" data-action="nav:api" aria-label="${t('API 设置','API settings')}">${icon('settings-2')}</button></div><div class="chat-empty"><h2>${t('从一个问题开始。','Start with a question.')}</h2><p>${t('解释一个词，辨析相近的表达，或者把今天的词写成一段故事。','Explore a word, compare expressions, or turn today’s words into a story.')}</p></div>${field(t('本次上下文','Context for this conversation'),'<select id="wp-context"><option>'+t('自由聊天 · 不附加词库','Free chat · No vocabulary attached')+'</option><option>'+t('今日所学词汇','Today’s words')+'</option><option>'+t('当前自定义词本','Current custom notebook')+'</option></select>')}<p class="library-note">${t('DeepSeek 尚未接入，预览不会伪造模型回复。','DeepSeek is not connected. This preview does not generate model replies.')}</p>${button(t('配置 DeepSeek','Configure DeepSeek'),'nav:api')}<div style="margin-top:25px">${field(t('消息','Message'),`<textarea rows="2" disabled placeholder="${t('原生版配置完成后，即可开始对话','Start chatting after setup in the native app')}"></textarea>`)}</div></div>${nav('chat')}</section>`;}
 const catalogs=[{id:'cet4',group:'cet',name:'大学英语四级',english:'CET-4',basis:'考试大纲词表',basisEn:'Exam syllabus vocabulary'},{id:'cet6',group:'cet',name:'大学英语六级',english:'CET-6',basis:'考试大纲词表',basisEn:'Exam syllabus vocabulary'},{id:'ielts',group:'ielts',name:'雅思备考词汇',english:'IELTS preparation',basis:'备考词表 · 来源待选',basisEn:'Preparation list · Source pending'},{id:'junior',group:'school',name:'初中英语',english:'Junior school English',basis:'课程标准词表',basisEn:'Curriculum vocabulary'},{id:'senior',group:'school',name:'高中英语',english:'Senior school English',basis:'课程标准词表',basisEn:'Curriculum vocabulary'}];
 function catalog(){return `<section class="page"><div class="inner">${backHeader(t('词书库','Wordbook catalog'))}<p class="small muted">${t('按目标选书，学习进度随你保留。','Choose your goal. Keep your learning history.')}</p><div class="filters">${[['all',t('全部','All')],['school',t('初高中','School')],['cet',t('四六级','CET')],['ielts','IELTS']].map(([v,n])=>`<button class="cursor-interaction" data-action="catalog-filter:${v}" aria-pressed="${state.catalog===v}">${n}</button>`).join('')}</div>${catalogs.filter(b=>state.catalog==='all'||b.group===state.catalog).map(b=>`<div class="catalog-row"><h3>${t(b.name,b.english)}</h3><p class="small muted">${t(b.basis,b.basisEn)}</p><span class="small-tag">${t('规划中 · 未内置','Planned · Not included')}</span>${button(t('查看来源与版本','Source & version'),'catalog-info:'+b.id,'text-button')}</div>`).join('')}<p class="library-note">${t('此处展示分类规划。尚未下载、授权或内置完整词书，不展示虚构词数。','These are planned categories. No complete wordbooks are downloaded, licensed or bundled.')}</p></div>${nav('books')}</section>`;}
-function about(){return `<section class="page"><div class="inner">${backHeader(t('版本与关于','Version & about'),'settings')}<h2>${t('拾词','Words')}</h2><p class="library-note">${t('界面设计稿 · 第 2 版','Interface design · Revision 2')}</p><div class="settings-section"><h2>${t('本轮变化','What changed')}</h2><p style="margin-top:12px">${t('自定义词本与固定分类分离；加入主题、语言设置；补充词书库与 DeepSeek 入口。','Separate custom notebooks from fixed records; add appearance and language preferences, catalog and DeepSeek entry points.')}</p></div><div class="settings-section"><h2>${t('未来更新','Future updates')}</h2><p style="margin-top:12px">${t('原生 App 将提供版本号、更新日志与检查更新；词书可独立更新。','The native app will provide versions, release notes and update checks. Wordbooks can update independently.')}</p><p class="library-note">${t('尚未创建 GitHub 仓库或发布安装包。','No GitHub repository or installable release has been published.')}</p></div></div></section>`;}
+function about(){return `<section class="page"><div class="inner">${backHeader(t('版本与关于','Version & about'),'settings')}<h2>${t('拾词','Words')}</h2><p class="library-note">${t('界面设计稿 · 第 3 版','Interface design · Revision 3')}</p><div class="settings-section"><h2>${t('本轮变化','What changed')}</h2><p style="margin-top:12px">${t('统一选择菜单、弹层和输入控件；加入轻量毛玻璃、圆角导航与减少透明效果。','Unify menus, sheets and controls; add restrained glass, rounded navigation and reduced transparency.')}</p></div><div class="settings-section"><h2>${t('未来更新','Future updates')}</h2><p style="margin-top:12px">${t('原生 App 将提供版本号、更新日志与检查更新；词书可独立更新。','The native app will provide versions, release notes and update checks. Wordbooks can update independently.')}</p><p class="library-note">${t('尚未创建 GitHub 仓库或发布安装包。','No GitHub repository or installable release has been published.')}</p></div></div></section>`;}
 function bookForm(rename=false){const b=currentBook();sheet(t(rename?'重命名词本':'新建词本',rename?'Rename notebook':'New notebook'),`<form id="wp-book-form" data-rename="${rename}">${field(t('词本名称','Notebook name'),`<input id="wp-book-name" name="name" maxlength="32" required value="${rename?esc(b.name):''}" placeholder="${t('例如：新闻阅读摘词','e.g. Words from the news')}">`)}<p class="error" id="wp-book-error" role="alert"></p><button type="button" data-form-save class="primary cursor-interaction">${t(rename?'保存名称':'创建词本',rename?'Save name':'Create notebook')}</button></form>`);dialog.querySelector('input').focus({preventScroll:true});}
 function addWords(){const b=currentBook();sheet(t('添加单词','Add words'),`<form id="wp-words-form"><p class="small muted">${t('从本地词库选择；已添加的词不会重复加入。','Choose local words. Existing words will not be duplicated.')}</p>${words.map((w,i)=>`<label class="check-row"><span><strong>${w.word}</strong><br><span class="small muted">${w.meaning}</span></span><input type="checkbox" name="word" value="${i}" ${b.words.includes(i)?'checked disabled':''}></label>`).join('')}<div style="margin-top:18px"><button type="button" data-form-save class="primary cursor-interaction">${t('添加所选单词','Add selected words')}</button></div></form>`);}
 function pickBooks(i){sheet(t('加入自定义词本','Add to notebooks'),state.notebooks.length?`<form id="wp-membership-form" data-word="${i}"><p class="sheet-word">${words[i].word}</p>${state.notebooks.map(b=>`<label class="check-row"><span>${esc(b.name)}</span><input type="checkbox" name="book" value="${b.id}" ${b.words.includes(i)?'checked':''}></label>`).join('')}<div style="margin-top:18px"><button type="button" data-form-save class="primary cursor-interaction">${t('保存归属','Save notebooks')}</button></div></form>`:`<p>${t('请先在词本页创建一个词本。','Create a notebook in your library first.')}</p>`);}
-function applyAppearance(){root.style.colorScheme=state.theme==='system'?'light dark':state.theme;root.dataset.palette=state.palette;root.dataset.highlight=state.highlight?'on':'off';root.style.setProperty('--wp-reading',state.fontSize+'px');root.style.setProperty('--wp-atmosphere',state.atmosphere?1:0);}
+function applyAppearance(){root.style.colorScheme=state.theme==='system'?'light dark':state.theme;root.dataset.palette=state.palette;root.dataset.highlight=state.highlight?'on':'off';root.dataset.transparency=state.reduceTransparency?'reduced':'standard';root.style.setProperty('--wp-reading',state.fontSize+'px');root.style.setProperty('--wp-atmosphere',state.atmosphere?1:0);}
+function hydrateControls(container){
+  container.querySelectorAll('select').forEach((selectEl,index)=>{
+    const key=selectEl.dataset.setting||(selectEl.id==='wp-context'?'context':'model');
+    const label=selectEl.getAttribute('aria-label')||selectEl.closest('label')?.querySelector('span')?.textContent||t('选择','Choose');
+    const choices=[...selectEl.options].map((o,i)=>({value:key==='context'?['free','today','notebook'][i]:o.value,label:o.textContent,disabled:o.disabled}));
+    if(key==='context'){
+      const detail=[t('只发送你的对话，不附加单词。','Send your conversation without vocabulary.'),t('附加今天学习过的词，方便复习。','Include today’s words for review.'),t('附加所选词本：','Use selected notebook: ')+(currentBook()?.name||state.notebooks[0]?.name||t('暂无词本','No notebook'))];
+      choices.forEach((c,i)=>{c.detail=detail[i];c.icon=['message-circle','sun','book-open'][i];if(i===2&&!state.notebooks.length)c.disabled=true;});
+    }
+    let value=state[key]===undefined?choices[selectEl.selectedIndex]?.value:String(state[key]);
+    if(!choices.some(c=>c.value===value&&!c.disabled))value=choices.find(c=>!c.disabled)?.value||choices[0]?.value;
+    if(key==='context')state.context=value;
+    const cfg={key,label,choices,value,disabled:selectEl.disabled};pickerConfigs.set(key,cfg);
+    const trigger=document.createElement('button');trigger.type='button';trigger.className='choice-trigger cursor-interaction';trigger.dataset.picker=key;trigger.disabled=cfg.disabled;
+    trigger.setAttribute('aria-label',label);trigger.setAttribute('aria-haspopup','menu');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls','wp-choice-menu');
+    const textId='wp-choice-'+key;trigger.setAttribute('aria-describedby',textId);
+    trigger.innerHTML=`<span id="${textId}">${esc(choices.find(c=>c.value===value)?.label||'')}</span>${icon(cfg.disabled?'lock-keyhole':'chevron-down')}`;
+    selectEl.replaceWith(trigger);
+  });
+  container.querySelectorAll('input[type=checkbox][data-setting]').forEach(el=>el.setAttribute('role','switch'));
+}
+function closePicker(restore=true){
+  picker.hidden=true;picker.innerHTML='';screen.inert=false;
+  if(pickerTrigger?.isConnected){pickerTrigger.setAttribute('aria-expanded','false');if(restore)pickerTrigger.focus({preventScroll:true});}
+  pickerTrigger=null;activePicker=null;
+}
+function openPicker(trigger){
+  const cfg=pickerConfigs.get(trigger.dataset.picker);if(!cfg||cfg.disabled)return;
+  if(pickerTrigger===trigger&&!picker.hidden){closePicker();return;}
+  closePicker(false);pickerTrigger=trigger;activePicker=cfg;
+  trigger.setAttribute('aria-expanded','true');picker.hidden=false;
+  picker.innerHTML=`<div class="picker-panel"><div class="picker-title" id="wp-choice-title">${esc(cfg.label)}</div><div id="wp-choice-menu" role="menu" aria-labelledby="wp-choice-title">${cfg.choices.map(c=>`<button type="button" class="picker-option cursor-interaction" role="menuitemradio" aria-checked="${c.value===cfg.value}" data-picker-value="${esc(c.value)}" ${c.disabled?'disabled':''}>${c.icon?`<span class="option-icon">${icon(c.icon)}</span>`:''}<span class="option-copy"><span class="option-label">${esc(c.label)}</span>${c.detail?`<span class="option-detail">${esc(c.detail)}</span>`:''}</span>${c.value===cfg.value?icon('check'):'<span class="check-space" aria-hidden="true"></span>'}</button>`).join('')}</div></div>`;
+  const phone=root.querySelector('.words-phone');const panel=picker.firstElementChild;const pr=phone.getBoundingClientRect();const tr=trigger.getBoundingClientRect();
+  const width=Math.min(Math.max(tr.width,260),phone.clientWidth-24);panel.style.width=width+'px';
+  panel.style.left=Math.max(12,Math.min(tr.left-pr.left,phone.clientWidth-width-12))+'px';
+  const height=panel.offsetHeight;const below=tr.bottom-pr.top+8;const visibleBottom=Math.min(phone.clientHeight,window.innerHeight-pr.top);
+  const above=tr.top-pr.top-height-8;const top=below+height<=visibleBottom-12?below:(above>=12?above:Math.max(12,Math.min(below,phone.clientHeight-height-12)));
+  panel.style.top=top+'px';panel.style.transformOrigin=top< tr.top-pr.top?'50% 100%':'50% 0';
+  if(globalThis.lucide)lucide.createIcons();screen.inert=true;
+  (picker.querySelector('[aria-checked=true]:not(:disabled)')||picker.querySelector('button:not(:disabled)')).focus({preventScroll:true});
+}
+function choosePicker(value){
+  const cfg=activePicker;if(!cfg)return;const choice=cfg.choices.find(c=>c.value===value&&!c.disabled);if(!choice)return;
+  const trigger=pickerTrigger;state[cfg.key]=value;cfg.value=value;closePicker(false);applyAppearance();
+  if(cfg.key==='language'){render();screen.querySelector('[data-picker="language"]')?.focus({preventScroll:true});}
+  else {trigger.querySelector('span').textContent=choice.label;trigger.focus({preventScroll:true});}
+}
 function reading(){return `<section class="page"><div class="inner"><div class="eyebrow">WORDS IN CONTEXT</div><div class="row" style="margin-top:13px"><h1>今日阅读</h1>${button(icon('message-circle'),'reading-help','icon-button')}</div><p class="muted small" style="margin-top:10px">示例节选 · 3 个目标词 · 点击查词</p><div class="reading-title">A Garden That<br>Changed a Neighborhood</div><div class="reading"><p>When residents turned an abandoned parking lot into a garden, few expected it to change the neighborhood. The benefits were <button class="target-word cursor-interaction" data-action="definition:1">subtle</button> at first: people stopped to talk, exchanged seeds, and began to recognize one another.</p><p>Then a summer storm damaged much of what they had planted. Instead of giving up, they rebuilt together. The garden had helped create a more <button class="target-word cursor-interaction" data-action="definition:0">resilient</button> community—one that could respond to setbacks rather than simply endure them.</p><p>To <button class="target-word cursor-interaction" data-action="definition:2">sustain</button> this progress, the residents shared responsibility for watering and repairs. What mattered was not a single ambitious plan, but the ordinary work people were willing to repeat.</p></div>${button(state.translation?'收起中文翻译':'展开中文翻译','translate','text-button')}${state.translation?`<div class="reading-cn">居民们把废弃停车场改造成花园时，很少有人想到它会改变整个街区。起初，益处很细微：大家停下脚步聊天、交换种子，也渐渐熟悉了彼此。<br><br>一场夏日暴风雨毁坏了许多植物，但居民没有放弃，而是一起重建。这座花园让社区更有韧性，能够主动应对挫折。为了让这种进步持续，大家共同承担浇水和修缮的责任。关键在于人们愿意持续做下去的日常小事。</div>`:''}</div>${nav('reading')}</section>`;}
-function render(){applyAppearance();screen.innerHTML=({home,learn,complete,books,reading,notebook,smart,settings,api,chat,catalog,about}[state.page]||home)();if(state.page==='home'){const top=screen.querySelector('.eyebrow');top.outerHTML=`<div class="row">${top.outerHTML}<button class="icon-button cursor-interaction" data-action="nav:settings" aria-label="${t('设置','Settings')}">${icon('settings-2')}</button></div>`;}screen.querySelectorAll('.icon-button').forEach(b=>{if(!b.hasAttribute('aria-label'))b.setAttribute('aria-label',b.dataset.action==='reading-help'?'询问 AI 阅读讲解':'返回今日');});if(globalThis.lucide)lucide.createIcons();}
+function render(){closePicker(false);pickerConfigs.clear();applyAppearance();screen.innerHTML=({home,learn,complete,books,reading,notebook,smart,settings,api,chat,catalog,about}[state.page]||home)();if(state.page==='home'){const top=screen.querySelector('.eyebrow');top.outerHTML=`<div class="row">${top.outerHTML}<button class="icon-button cursor-interaction" data-action="nav:settings" aria-label="${t('设置','Settings')}">${icon('settings-2')}</button></div>`;}if(state.page==='settings'){const appearance=screen.querySelector('.settings-section');appearance.insertAdjacentHTML('beforeend',`<label class="check-row"><span>${t('减少透明效果','Reduce transparency')}</span><input type="checkbox" data-setting="reduceTransparency" ${state.reduceTransparency?'checked':''}></label>`);}screen.querySelectorAll('.icon-button').forEach(b=>{if(!b.hasAttribute('aria-label'))b.setAttribute('aria-label',b.dataset.action==='reading-help'?'询问 AI 阅读讲解':'返回今日');});hydrateControls(screen);if(globalThis.lucide)lucide.createIcons();}
 function closeSheet(){dialog.hidden=true;dialog.innerHTML='';if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});else screen.querySelector('button')?.focus({preventScroll:true});}
 function sheet(title,content){const opening=dialog.hidden;if(opening)returnFocus=document.activeElement;dialog.hidden=false;dialog.innerHTML=`<section class="sheet" role="dialog" aria-modal="true" aria-labelledby="wp-sheet-title"><div class="row"><h2 id="wp-sheet-title">${title}</h2><button type="button" data-action="close" class="icon-button cursor-interaction" aria-label="关闭">${icon('x')}</button></div>${content}</section>`;if(opening){const phone=root.querySelector('.words-phone');const offset=state.page==='reading'?Math.max(0,Math.min(returnFocus.getBoundingClientRect().top-phone.getBoundingClientRect().top-80,phone.clientHeight-dialog.firstElementChild.offsetHeight)):0;dialog.style.alignItems=state.page==='reading'?'flex-start':'flex-end';dialog.style.paddingTop=offset+'px';}if(globalThis.lucide)lucide.createIcons();dialog.querySelector('button').focus({preventScroll:true});}
 function wordSheet(i){const w=words[i];sheet(w.word,`<p class="muted small">${w.ipa}</p><p>${w.meaning}</p><p class="small muted">${w.example}</p>${button(state.saved.includes(i)?t('已在生词分类 · 点击移除','Saved · Remove'):t('加入生词分类','Save word'),'sheet-save:'+i)}<div style="margin-top:10px">${button(t('加入自定义词本','Add to notebooks'),'pick-books:'+i,'secondary')}</div>${button(t('查看 AI 讲解示例','View sample explanation'),'explain:'+i,'text-button')}`);}
@@ -179,6 +277,17 @@ root.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(
 root.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const [a,v]=b.dataset.action.split(':');const i=Number(v);switch(a){case'nav':state.page=v;break;case'start':state.session='learn';if(state.learned.length===3){state.page='complete';}else{state.index=words.findIndex((_,n)=>!state.learned.includes(n));state.revealed=false;state.page='learn';}break;case'review':state.session='review';state.index=state.reviewed.length===3?0:words.findIndex((_,n)=>!state.reviewed.includes(n));state.revealed=false;state.page='learn';break;case'reveal':state.revealed=true;break;case'rate':{const list=state.session==='review'?state.reviewed:state.learned;if(!list.includes(state.index))list.push(state.index);if(i<2&&!state.mistakes.includes(state.index))state.mistakes.push(state.index);if(state.index===2){state.page='complete';}else{state.index++;state.revealed=false;}break;}case'save':state.saved=state.saved.includes(i)?state.saved.filter(n=>n!==i):[...state.saved,i];break;case'sheet-save':state.saved=state.saved.includes(i)?state.saved.filter(n=>n!==i):[...state.saved,i];render();wordSheet(i);return;case'filter':state.filter=v;break;case'translate':state.translation=!state.translation;break;case'definition':wordSheet(i);return;case'explain':sheet('记住这个词',`<p class="small muted">AI 讲解示例 · 未连接 API</p><p class="sheet-word">${words[i].word}</p><p>${words[i].explain}</p>`);return;case'reading-help':sheet('读懂这段话',`<p class="small muted">AI 讲解示例 · 未连接 API</p><p>这段文字通过社区花园的故事，把三个词串在一起：</p><p><strong>subtle</strong>：最初细微的变化。<br><strong>resilient</strong>：受挫后恢复的能力。<br><strong>sustain</strong>：让好的变化持续。</p><p class="small muted">真实版本中可以继续追问句意、语法和用词。</p>`);return;case'close':closeSheet();return;}render();});
 dialog.addEventListener('click',e=>{if(e.target===dialog)closeSheet();});
 dialog.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();return;}if(e.key==='Tab'){const bs=[...dialog.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled)')];if(e.shiftKey&&document.activeElement===bs[0]){e.preventDefault();bs.at(-1).focus();}else if(!e.shiftKey&&document.activeElement===bs.at(-1)){e.preventDefault();bs[0].focus();}}});
+root.addEventListener('click',e=>{const trigger=e.target.closest('[data-picker]');if(trigger){openPicker(trigger);return;}const choice=e.target.closest('[data-picker-value]');if(choice){choosePicker(choice.dataset.pickerValue);return;}if(e.target===picker)closePicker();});
+root.addEventListener('keydown',e=>{const trigger=e.target.closest('[data-picker]');if(trigger&&['ArrowDown','ArrowUp'].includes(e.key)){e.preventDefault();openPicker(trigger);}});
+picker.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();closePicker();return;}
+  if(e.key==='Tab'){closePicker();return;}
+  if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){
+    e.preventDefault();const items=[...picker.querySelectorAll('[role=menuitemradio]:not(:disabled)')];const index=items.indexOf(document.activeElement);
+    const next=e.key==='Home'?0:e.key==='End'?items.length-1:(index+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items[next]?.focus({preventScroll:true});
+  }
+});
+window.addEventListener('resize',()=>closePicker(false));
 render();
 })();
 </script>
