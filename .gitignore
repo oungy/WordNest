@@ -1,0 +1,31 @@
+# Local design previews, test output and tooling
+/work/
+/.playwright-cli/
+/output/
+/.idea/
+*.iml
+
+# Android build and machine configuration
+.gradle/
+.kotlin/
+**/build/
+local.properties
+captures/
+
+# Credentials and signing material
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Personal learning data and downloaded material
+/private/
+/backups/
+/downloads/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
