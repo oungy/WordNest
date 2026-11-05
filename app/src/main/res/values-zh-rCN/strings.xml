@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordNest</string>
+    <string name="welcome_message">每天拾起一点新知。</string>
+    <string name="development_notice">拾词正在成长。词书、每日学习和阅读功能将在后续版本中加入。</string>
+</resources>

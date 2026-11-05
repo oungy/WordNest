@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordNest</string>
+    <string name="welcome_message">A little learning, every day.</string>
+    <string name="development_notice">WordNest is taking shape. Vocabulary books, daily learning and reading are coming next.</string>
+</resources>
