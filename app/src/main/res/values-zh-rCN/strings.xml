@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WordNest</string>
+    <string name="brand_title">拾词</string>
     <string name="welcome_message">每天拾起一点新知。</string>
-    <string name="development_notice">拾词正在成长。词书、每日学习和阅读功能将在后续版本中加入。</string>
+    <string name="appearance">外观</string>
+    <string name="go_back">返回</string>
+    <string name="theme_label">主题</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="theme_light">浅色</string>
+    <string name="theme_dark">深色</string>
+    <string name="reduce_transparency">减少透明效果</string>
+    <string name="reduce_transparency_description">让选书面板使用实色背景。</string>
+    <string name="settings_save_failed">设置保存失败，请重试。</string>
+    <string name="sample_books">示例词书</string>
+    <string name="no_book_selected">尚未选择词书</string>
+    <string name="choose_book">选择词书</string>
+    <string name="search_books">搜索词书</string>
+    <string name="no_books_found">没有符合搜索条件的词书。</string>
+    <string name="cancel">取消</string>
+    <string name="apply_selection">完成</string>
+    <string name="book_foundations">基础高频词</string>
+    <string name="book_foundations_description">日常英语里常见的基础词汇。</string>
+    <string name="book_everyday">日常场景词汇</string>
+    <string name="book_everyday_description">涵盖出行、购物、外出就餐和问路等生活场景中经常听到的英语词汇。</string>
+    <string name="book_reading">阅读词汇</string>
+    <string name="book_reading_unavailable">当前版本暂不可用</string>
 </resources>

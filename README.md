@@ -1,6 +1,6 @@
 # WordNest / 拾词
 
-本地优先的 Android 英语词汇学习应用。当前已建立 Kotlin + Jetpack Compose 工程骨架，原生页面仅为欢迎页；完整学习流程仍在开发中。
+本地优先的 Android 英语词汇学习应用。阶段 0 调试版提供原生示例选书和外观设置；完整学习流程仍在开发中。
 
 确定的技术路线：Kotlin、Jetpack Compose、Room、DeepSeek 普通聊天 API。
 
@@ -33,8 +33,8 @@ macOS / Linux 使用 `./gradlew :app:assembleDebug :app:lintDebug`。首次执�
 
 已完成可点击界面设计：背词、阅读、自定义词本、主题和语言设置、DeepSeek 配置入口、词书分类。HTML 设计预览与原生 App 是两个独立产物。
 
-已建立：单个 app module、Gradle Wrapper、依赖版本目录、原生欢迎页、浅深主题、中英文欢迎文案和 GitHub 构建流程。
+已建立：单个 app module、Gradle Wrapper、依赖版本目录和 GitHub 构建流程。原生界面支持搜索和试选示例词书、取消或确认选择，以及跨启动保存主题和减少透明效果设置。
 
-尚待实现：原生界面、本地持久化与复习逻辑、真实 LLM、可分发的完整词书、音频、备份、版本检查与安装升级。
+尚待实现：每日计划和学习进度持久化、复习、真实 LLM、可分发的完整词书、音频、备份、版本检查与安装升级。
 
 代码仓库：[oungy/WordNest](https://github.com/oungy/WordNest)。尚未发布正式 App；项目代码许可证待确定，公开仓库不代表已授予开源许可。第三方词书、字典和构建工具遵循各自许可，不能自动归入将来的项目许可证。API Key、个人学习数据和签名密钥均不属于仓库内容。

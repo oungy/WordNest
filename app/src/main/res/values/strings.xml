@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WordNest</string>
+    <string name="brand_title">WordNest</string>
     <string name="welcome_message">A little learning, every day.</string>
-    <string name="development_notice">WordNest is taking shape. Vocabulary books, daily learning and reading are coming next.</string>
+    <string name="appearance">Appearance</string>
+    <string name="go_back">Back</string>
+    <string name="theme_label">Theme</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="reduce_transparency">Reduce transparency</string>
+    <string name="reduce_transparency_description">Use a solid background for the book picker.</string>
+    <string name="settings_save_failed">Couldn’t save the setting. Try again.</string>
+    <string name="sample_books">Sample wordbooks</string>
+    <string name="no_book_selected">No wordbook selected</string>
+    <string name="choose_book">Choose a wordbook</string>
+    <string name="search_books">Search wordbooks</string>
+    <string name="no_books_found">No wordbooks match this search.</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply_selection">Done</string>
+    <string name="book_foundations">Essential vocabulary</string>
+    <string name="book_foundations_description">Common words for everyday English.</string>
+    <string name="book_everyday">English for daily life</string>
+    <string name="book_everyday_description">Words you’ll encounter while travelling, shopping, eating out and asking for directions.</string>
+    <string name="book_reading">Vocabulary for reading</string>
+    <string name="book_reading_unavailable">Unavailable in this build</string>
 </resources>

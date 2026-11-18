@@ -1,6 +1,6 @@
 # 可维护架构与发布约定
 
-日期：2026-11-04。这是实施约定；当前已有单 app module 的 Android 初始工程与欢迎页，业务、持久化与 API 层尚未实现。构建方法见 [开发指南](development.md)。
+日期：2026-11-04。这是实施约定。Android 单 app module 已有示例选书和外观设置，外观偏好通过 DataStore 保存。学习、Room 和 API 层将在后续阶段接入。构建方法见 [开发指南](development.md)。
 
 ## 结构
 
