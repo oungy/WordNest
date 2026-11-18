@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WordNest</string>
-    <string name="brand_title">WordNest</string>
-    <string name="welcome_message">A little learning, every day.</string>
     <string name="appearance">Appearance</string>
     <string name="go_back">Back</string>
     <string name="theme_label">Theme</string>
@@ -10,11 +8,10 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="reduce_transparency">Reduce transparency</string>
-    <string name="reduce_transparency_description">Use a solid background for the book picker.</string>
+    <string name="reduce_transparency_description">Use a solid background for selection panels.</string>
     <string name="settings_save_failed">Couldn’t save the setting. Try again.</string>
-    <string name="sample_books">Sample wordbooks</string>
-    <string name="no_book_selected">No wordbook selected</string>
-    <string name="choose_book">Choose a wordbook</string>
+    <string name="no_book_selected">No wordbooks selected</string>
+    <string name="choose_book">Choose wordbooks</string>
     <string name="search_books">Search wordbooks</string>
     <string name="no_books_found">No wordbooks match this search.</string>
     <string name="cancel">Cancel</string>
@@ -25,4 +22,45 @@
     <string name="book_everyday_description">Words you’ll encounter while travelling, shopping, eating out and asking for directions.</string>
     <string name="book_reading">Vocabulary for reading</string>
     <string name="book_reading_unavailable">Unavailable in this build</string>
+    <string name="today">Today</string>
+    <string name="active_books">Active sample wordbooks</string>
+    <string name="words_learned">Learned %1$d of %2$d</string>
+    <string name="book_name_separator">", "</string>
+    <string name="today_plan_books">Today’s wordbooks: %1$s</string>
+    <string name="next_plan_settings">Your changes apply to the next day’s plan.</string>
+    <string name="choose_books_to_start">Choose at least one wordbook to start learning new words.</string>
+    <string name="selected_books_complete">You’ve learned all the words in your active wordbooks.</string>
+    <plurals name="words_available">
+        <item quantity="one">%d new word available</item>
+        <item quantity="other">%d new words available</item>
+    </plurals>
+    <string name="new_study_title">New words</string>
+    <string name="start_study">Start learning</string>
+    <string name="continue_study">Continue learning</string>
+    <string name="new_study_complete">Today’s plan is complete</string>
+    <string name="review_title">Review</string>
+    <string name="no_reviews_due">No words due for review</string>
+    <plurals name="reviews_due">
+        <item quantity="one">%d word due</item>
+        <item quantity="other">%d words due</item>
+    </plurals>
+    <string name="start_review">Start review</string>
+    <string name="review_complete">Review complete</string>
+    <string name="daily_goal">Daily new-word goal</string>
+    <string name="daily_goal_with_value">Daily new-word goal · %1$d</string>
+    <string name="daily_goal_input">Number of new words</string>
+    <string name="daily_goal_range">Enter a whole number from %1$d to %2$d.</string>
+    <string name="words_recorded">Recorded %1$d of %2$d</string>
+    <string name="recall_prompt">Can you recall the meaning?</string>
+    <string name="reveal_definition">Show meaning</string>
+    <string name="rate_prompt">How well did you recall it?</string>
+    <string name="rating_forgot">Forgot</string>
+    <string name="rating_unsure">Unsure</string>
+    <string name="rating_remembered">Remembered</string>
+    <string name="back_to_today">Back to Today</string>
+    <string name="study_loading">Loading your study progress…</string>
+    <string name="study_load_error">Couldn’t load your study data. Try again.</string>
+    <string name="study_save_error">Couldn’t save the change. Try again.</string>
+    <string name="study_day_changed">The device date changed. The plan now shows the new date.</string>
+    <string name="try_again">Try again</string>
 </resources>

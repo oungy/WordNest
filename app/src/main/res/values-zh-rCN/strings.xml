@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WordNest</string>
-    <string name="brand_title">拾词</string>
-    <string name="welcome_message">每天拾起一点新知。</string>
     <string name="appearance">外观</string>
     <string name="go_back">返回</string>
     <string name="theme_label">主题</string>
@@ -10,9 +8,8 @@
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>
     <string name="reduce_transparency">减少透明效果</string>
-    <string name="reduce_transparency_description">让选书面板使用实色背景。</string>
+    <string name="reduce_transparency_description">让选择面板使用实色背景。</string>
     <string name="settings_save_failed">设置保存失败，请重试。</string>
-    <string name="sample_books">示例词书</string>
     <string name="no_book_selected">尚未选择词书</string>
     <string name="choose_book">选择词书</string>
     <string name="search_books">搜索词书</string>
@@ -25,4 +22,43 @@
     <string name="book_everyday_description">涵盖出行、购物、外出就餐和问路等生活场景中经常听到的英语词汇。</string>
     <string name="book_reading">阅读词汇</string>
     <string name="book_reading_unavailable">当前版本暂不可用</string>
+    <string name="today">今日</string>
+    <string name="active_books">在学测试词书</string>
+    <string name="words_learned">已学 %1$d / %2$d</string>
+    <string name="book_name_separator">、</string>
+    <string name="today_plan_books">今日计划来自 %1$s</string>
+    <string name="next_plan_settings">更改将在下一天的计划中生效。</string>
+    <string name="choose_books_to_start">选择至少一本词书，即可开始学习新词。</string>
+    <string name="selected_books_complete">所选词书的新词已全部学完。</string>
+    <plurals name="words_available">
+        <item quantity="other">可学习 %d 个新词</item>
+    </plurals>
+    <string name="new_study_title">新词学习</string>
+    <string name="start_study">开始学习</string>
+    <string name="continue_study">继续学习</string>
+    <string name="new_study_complete">今日计划已完成</string>
+    <string name="review_title">到期复习</string>
+    <string name="no_reviews_due">暂无到期词汇</string>
+    <plurals name="reviews_due">
+        <item quantity="other">%d 个词待复习</item>
+    </plurals>
+    <string name="start_review">开始复习</string>
+    <string name="review_complete">复习已完成</string>
+    <string name="daily_goal">每日新词目标</string>
+    <string name="daily_goal_with_value">每日新词目标 · %1$d</string>
+    <string name="daily_goal_input">新词数量</string>
+    <string name="daily_goal_range">请输入 %1$d 至 %2$d 之间的整数。</string>
+    <string name="words_recorded">已记录 %1$d / %2$d</string>
+    <string name="recall_prompt">先回想一下，它是什么意思？</string>
+    <string name="reveal_definition">查看释义</string>
+    <string name="rate_prompt">刚才回忆得怎么样？</string>
+    <string name="rating_forgot">忘记</string>
+    <string name="rating_unsure">模糊</string>
+    <string name="rating_remembered">记得</string>
+    <string name="back_to_today">返回今日</string>
+    <string name="study_loading">正在加载学习进度…</string>
+    <string name="study_load_error">学习数据加载失败，请重试。</string>
+    <string name="study_save_error">保存失败，请重试。</string>
+    <string name="study_day_changed">设备日期已变更，已切换到对应日期的计划。</string>
+    <string name="try_again">重试</string>
 </resources>

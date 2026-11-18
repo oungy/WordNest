@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -34,6 +36,7 @@ internal fun ChoiceRow(
     modifier: Modifier = Modifier,
     description: String? = null,
     enabled: Boolean = true,
+    multiple: Boolean = false,
 ) {
     val colors = MaterialTheme.colorScheme
     var focused by remember { mutableStateOf(false) }
@@ -41,6 +44,13 @@ internal fun ChoiceRow(
         !enabled -> colors.onSurfaceVariant.copy(alpha = 0.72f)
         selected -> colors.onPrimaryContainer
         else -> colors.onSurface
+    }
+    val choice = if (multiple) {
+        Modifier.toggleable(
+            value = selected, enabled = enabled, role = Role.Checkbox, onValueChange = { onSelect() },
+        )
+    } else {
+        Modifier.selectable(selected = selected, enabled = enabled, role = Role.RadioButton, onClick = onSelect)
     }
     Row(
         modifier = modifier
@@ -54,7 +64,7 @@ internal fun ChoiceRow(
                 color = if (focused) colors.primary else colors.outlineVariant,
                 shape = ControlShape,
             )
-            .selectable(selected = selected, enabled = enabled, role = Role.RadioButton, onClick = onSelect)
+            .then(choice)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -69,6 +79,10 @@ internal fun ChoiceRow(
                 )
             }
         }
-        RadioButton(selected = selected, onClick = null, enabled = enabled)
+        if (multiple) {
+            Checkbox(checked = selected, onCheckedChange = null, enabled = enabled)
+        } else {
+            RadioButton(selected = selected, onClick = null, enabled = enabled)
+        }
     }
 }

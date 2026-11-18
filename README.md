@@ -1,10 +1,10 @@
 # WordNest / 拾词
 
-本地优先的 Android 英语词汇学习应用。阶段 0 调试版提供原生示例选书和外观设置；完整学习流程仍在开发中。
+本地优先的 Android 英语词汇学习应用。阶段 1 调试版可以离线选择测试词书、制定每日新词计划、背词和复习。Room 保存计划与学习进度。
 
 确定的技术路线：Kotlin、Jetpack Compose、Room、DeepSeek 普通聊天 API。
 
-目标流程：选择一本或多本在学词书 → 每日新词与到期复习 → 语境阅读与 AI 讲解。Room 与真实 DeepSeek 接入尚未实现。
+目标流程为多词书选学、每日新词与到期复习、语境阅读与 AI 讲解。
 
 ## 开始开发
 
@@ -13,12 +13,12 @@
 Windows 命令行：
 
 ```powershell
-.\gradlew.bat :app:assembleDebug :app:lintDebug
+.\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug
 ```
 
-macOS / Linux 使用 `./gradlew :app:assembleDebug :app:lintDebug`。首次执行会下载 Gradle 与依赖，需要访问 Google Maven、Maven Central 和 Gradle 分发服务。
+macOS / Linux 使用 `./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug`。首次构建需要访问 Google Maven、Maven Central、Gradle Plugin Portal 和 Gradle 分发服务。
 
-详细的环境配置、目录说明和 Git 操作见 [开发指南](docs/development.md)。GitHub Actions 对 main 推送与 Pull Request 执行构建和 Lint；通过后保存临时调试 APK 构建产物，不自动发布正式版本。
+构建环境和阶段 1 验收步骤见 [开发指南](docs/development.md)。GitHub Actions 对 main 推送与 Pull Request 执行构建、单元测试和 Lint，通过后保存临时调试 APK。
 
 ## 设计资料
 
@@ -33,8 +33,6 @@ macOS / Linux 使用 `./gradlew :app:assembleDebug :app:lintDebug`。首次执�
 
 已完成可点击界面设计：背词、阅读、自定义词本、主题和语言设置、DeepSeek 配置入口、词书分类。HTML 设计预览与原生 App 是两个独立产物。
 
-已建立：单个 app module、Gradle Wrapper、依赖版本目录和 GitHub 构建流程。原生界面支持搜索和试选示例词书、取消或确认选择，以及跨启动保存主题和减少透明效果设置。
-
-尚待实现：每日计划和学习进度持久化、复习、真实 LLM、可分发的完整词书、音频、备份、版本检查与安装升级。
+原生版内置两本测试词书，共 16 个不同词条。主题、减少透明效果、在学词书、每日目标和作答进度均跨启动保存。完整词书、自定义词本、阅读、DeepSeek、音频及备份仍在规划中。
 
 代码仓库：[oungy/WordNest](https://github.com/oungy/WordNest)。尚未发布正式 App；项目代码许可证待确定，公开仓库不代表已授予开源许可。第三方词书、字典和构建工具遵循各自许可，不能自动归入将来的项目许可证。API Key、个人学习数据和签名密钥均不属于仓库内容。
