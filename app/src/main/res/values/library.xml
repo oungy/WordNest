@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="library_title">Library</string>
+    <string name="library_records">Learning records</string>
+    <string name="library_saved">Saved words</string>
+    <string name="library_mistaken">Mistakes</string>
+    <string name="library_learned">Learned</string>
+    <string name="library_mastered">Mastered</string>
+    <string name="library_all">All words</string>
+    <string name="library_empty_saved">Save a word from its details to find it here.</string>
+    <string name="library_empty_mistaken">Words marked Forgot will appear here.</string>
+    <string name="library_empty_learned">Complete a new word to see it here.</string>
+    <string name="library_empty_mastered">No words have reached the mastery interval yet.</string>
+    <string name="library_empty_all">Your local dictionary is empty.</string>
+    <string name="library_empty_practice">No past mistakes currently need practice.</string>
+    <string name="library_needs_practice">Only show words that still need practice</string>
+    <string name="library_mastery_rule">Words appear here when their review interval reaches 14 days.</string>
+    <string name="library_notebooks">My notebooks</string>
+    <string name="library_empty_notebooks">Create a notebook to collect words together.</string>
+    <string name="library_create">Create notebook</string>
+    <string name="library_local_dictionary">Local dictionary</string>
+    <string name="library_unsave">Remove from saved words</string>
+    <string name="library_save_word">Save word</string>
+    <string name="library_word_notebooks">In notebooks</string>
+    <string name="library_no_memberships">This word is in no notebooks yet.</string>
+    <string name="library_edit_memberships">Choose notebooks</string>
+    <string name="library_edit_words">Add or remove words</string>
+    <string name="library_search_words">Search words or meanings</string>
+    <string name="library_no_matches">No matching words.</string>
+    <string name="library_empty_book">This notebook is empty. Add a few words to get started.</string>
+    <string name="library_manage">Manage notebook</string>
+    <string name="library_rename">Rename notebook</string>
+    <string name="library_delete">Delete notebook</string>
+    <string name="library_delete_message">Delete “%1$s”? Your words, other notebooks, saved words and learning history will be kept.</string>
+    <string name="library_delete_confirm">Confirm deletion</string>
+    <string name="library_search_notebooks">Search notebooks</string>
+    <string name="library_no_matching_notebooks">No matching notebooks.</string>
+    <string name="library_name_duplicate">A notebook already uses this name.</string>
+    <string name="library_name_length">Use 1–32 characters.</string>
+    <string name="library_name">Notebook name</string>
+    <string name="library_save_name">Save</string>
+    <plurals name="library_word_count">
+        <item quantity="one">%d word</item>
+        <item quantity="other">%d words</item>
+    </plurals>
+</resources>

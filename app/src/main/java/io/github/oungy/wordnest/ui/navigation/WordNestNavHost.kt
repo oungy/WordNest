@@ -4,6 +4,7 @@ import android.os.Build
 import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -56,13 +57,22 @@ internal fun WordNestNavHost(
     val state by study.state.collectAsStateWithLifecycle()
     val dashboard = state.dashboard
     val session = state.session
+    var inLibrary by rememberSaveable { mutableStateOf(false) }
+    val libraryTab = remember { FocusRequester() }
+    var focusLibraryTab by remember { mutableStateOf(false) }
+    fun leaveLibrary() {
+        inLibrary = false
+        focusLibraryTab = true
+    }
+
     var panel by rememberSaveable { mutableStateOf<TodayAction?>(null) }
     var returnFocus by remember { mutableStateOf<TodayAction?>(null) }
     val focus = remember { TodayAction.entries.associateWith { FocusRequester() } }
     val homeScroll = rememberScrollState()
     val settingsScroll = rememberScrollState()
     val useGlass = windowBlurAvailable() && !appearance.reduceTransparency
-    val sheetOpen = dashboard != null && (panel == TodayAction.Books || panel == TodayAction.Goal)
+    var librarySheetOpen by remember { mutableStateOf(false) }
+    val sheetOpen = librarySheetOpen || (dashboard != null && (panel == TodayAction.Books || panel == TodayAction.Goal))
     val windowFocused = LocalWindowInfo.current.isWindowFocused
 
     fun dismissPanel() {
@@ -71,15 +81,24 @@ internal fun WordNestNavHost(
     }
 
     fun endSession() {
+        inLibrary = false
         returnFocus = if (session?.mode == StudyMode.Review) TodayAction.Review else TodayAction.Learn
         study.leaveSession()
     }
 
+    LaunchedEffect(focusLibraryTab, inLibrary, windowFocused) {
+        if (focusLibraryTab && !inLibrary && windowFocused) {
+            libraryTab.requestFocus()
+            focusLibraryTab = false
+        }
+    }
     BackHandler(enabled = panel == TodayAction.Appearance, onBack = ::dismissPanel)
     BackHandler(enabled = session != null, onBack = ::endSession)
-    LaunchedEffect(returnFocus, state.busy, windowFocused) {
+    LaunchedEffect(returnFocus, state.busy, windowFocused, inLibrary) {
         val target = returnFocus
-        if (target != null && !state.busy && windowFocused && session == null && panel == null) {
+        if (inLibrary) {
+            returnFocus = null
+        } else if (target != null && !state.busy && windowFocused && session == null && panel == null) {
             val available = when (target) {
                 TodayAction.Learn -> dashboard != null && dashboard.newTotal > dashboard.newCompleted
                 TodayAction.Review -> dashboard?.dueWords?.isNotEmpty() == true
@@ -91,52 +110,61 @@ internal fun WordNestNavHost(
     }
 
     Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-                .safeDrawingPadding()
-                .blur(if (sheetOpen && useGlass) 16.dp else 0.dp),
-            contentAlignment = Alignment.TopCenter,
+        Column(
+            Modifier.fillMaxSize().safeDrawingPadding().blur(if (sheetOpen && useGlass) 16.dp else 0.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            val width = Modifier.widthIn(max = 568.dp).fillMaxWidth()
-            val padding = Modifier.padding(horizontal = 24.dp, vertical = 24.dp)
-            when {
-                session != null && dashboard != null -> {
-                    val reviewing = session.mode == StudyMode.Review
-                    val word = if (reviewing) dashboard.dueWords.firstOrNull() else dashboard.nextNewWord
-                    key(session.mode, session.day, word?.id) {
-                        ExerciseScreen(
-                            modifier = width.verticalScroll(rememberScrollState()).then(padding),
-                            session = session,
-                            word = word,
-                            completed = if (reviewing) session.reviewed else dashboard.newCompleted,
-                            total = if (reviewing) session.reviewTotal else dashboard.newTotal,
-                            busy = state.busy,
-                            error = state.error,
-                            onBack = ::endSession,
-                            onRate = study::rate,
-                        )
-                    }
-                }
-                panel == TodayAction.Appearance -> AppearanceScreen(
-                    modifier = width.verticalScroll(settingsScroll).then(padding),
-                    appearance = appearance,
-                    saveFailed = saveFailed,
-                    onBack = ::dismissPanel,
-                    onThemeChange = onThemeChange,
-                    onTransparencyChange = onTransparencyChange,
-                )
-                else -> TodayScreen(
-                    modifier = width.verticalScroll(homeScroll).then(padding),
-                    state = state,
-                    focus = focus,
-                    onReload = study::refresh,
-                    onAction = { action ->
-                        when (action) {
-                            TodayAction.Learn -> study.start(StudyMode.New)
-                            TodayAction.Review -> study.start(StudyMode.Review)
-                            else -> panel = action
+            Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
+                val width = Modifier.widthIn(max = 568.dp).fillMaxWidth()
+                val padding = Modifier.padding(horizontal = 24.dp, vertical = 24.dp)
+                when {
+                    session != null && dashboard != null -> {
+                        val reviewing = session.mode == StudyMode.Review
+                        val word = if (reviewing) dashboard.dueWords.firstOrNull() else dashboard.nextNewWord
+                        key(session.mode, session.day, word?.id) {
+                            ExerciseScreen(
+                                modifier = width.verticalScroll(rememberScrollState()).then(padding),
+                                session = session,
+                                word = word,
+                                completed = if (reviewing) session.reviewed else dashboard.newCompleted,
+                                total = if (reviewing) session.reviewTotal else dashboard.newTotal,
+                                busy = state.busy,
+                                error = state.error,
+                                onBack = ::endSession,
+                                onRate = study::rate,
+                            )
                         }
-                    },
+                    }
+                    panel == TodayAction.Appearance -> AppearanceScreen(
+                        modifier = width.verticalScroll(settingsScroll).then(padding),
+                        appearance = appearance,
+                        saveFailed = saveFailed,
+                        onBack = ::dismissPanel,
+                        onThemeChange = onThemeChange,
+                        onTransparencyChange = onTransparencyChange,
+                    )
+                    inLibrary -> LibraryDestination(width, study, useGlass, ::leaveLibrary) { librarySheetOpen = it }
+                    else -> TodayScreen(
+                        modifier = width.verticalScroll(homeScroll).then(padding),
+                        state = state,
+                        focus = focus,
+                        onReload = study::refresh,
+                        onAction = { action ->
+                            when (action) {
+                                TodayAction.Learn -> study.start(StudyMode.New)
+                                TodayAction.Review -> study.start(StudyMode.Review)
+                                else -> panel = action
+                            }
+                        },
+                    )
+                }
+            }
+            if (session == null && panel != TodayAction.Appearance) {
+                StudyNavigation(
+                    inLibrary = inLibrary,
+                    libraryFocus = libraryTab,
+                    onToday = { inLibrary = false },
+                    onLibrary = { inLibrary = true },
                 )
             }
         }

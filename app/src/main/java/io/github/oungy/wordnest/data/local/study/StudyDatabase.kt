@@ -1,6 +1,7 @@
 package io.github.oungy.wordnest.data.local.study
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Insert
@@ -21,11 +22,16 @@ import androidx.room.Upsert
         DailyPlanWord::class,
         LearningEvent::class,
         ReviewState::class,
+        Notebook::class,
+        NotebookWord::class,
+        SavedWord::class,
     ],
-    version = 1,
+    version = 2,
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
 )
 internal abstract class StudyDatabase : RoomDatabase() {
     abstract fun studyDao(): StudyDao
+    abstract fun libraryDao(): LibraryDao
 
     companion object {
         fun open(context: Context, name: String = "wordnest-study.db"): StudyDatabase =

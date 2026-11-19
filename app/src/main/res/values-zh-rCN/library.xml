@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="library_title">词本</string>
+    <string name="library_records">学习记录</string>
+    <string name="library_saved">生词</string>
+    <string name="library_mistaken">错词</string>
+    <string name="library_learned">已学</string>
+    <string name="library_mastered">已掌握</string>
+    <string name="library_all">全部单词</string>
+    <string name="library_empty_saved">在单词详情中收藏后，可以在这里找到它。</string>
+    <string name="library_empty_mistaken">评为「忘记」的词会出现在这里。</string>
+    <string name="library_empty_learned">完成新词学习后，可以在这里找到它。</string>
+    <string name="library_empty_mastered">还没有词达到掌握所需的复习间隔。</string>
+    <string name="library_empty_all">本地词库暂无词条。</string>
+    <string name="library_empty_practice">错词中暂无待巩固的词。</string>
+    <string name="library_needs_practice">只看当前待巩固</string>
+    <string name="library_mastery_rule">复习间隔达到 14 天的词会出现在这里。</string>
+    <string name="library_notebooks">我的词本</string>
+    <string name="library_empty_notebooks">新建一个词本，就可以把相关单词放在一起。</string>
+    <string name="library_create">新建词本</string>
+    <string name="library_local_dictionary">本地词库</string>
+    <string name="library_unsave">取消收藏</string>
+    <string name="library_save_word">收藏为生词</string>
+    <string name="library_word_notebooks">所属词本</string>
+    <string name="library_no_memberships">这个词尚未加入词本。</string>
+    <string name="library_edit_memberships">选择所属词本</string>
+    <string name="library_edit_words">添加或移除单词</string>
+    <string name="library_search_words">搜索单词或释义</string>
+    <string name="library_no_matches">没有匹配的单词。</string>
+    <string name="library_empty_book">词本还是空的，可以先添加几个单词。</string>
+    <string name="library_manage">管理词本</string>
+    <string name="library_rename">重命名词本</string>
+    <string name="library_delete">删除词本</string>
+    <string name="library_delete_message">删除「%1$s」？其中的词条、其他词本、收藏和学习记录都会保留。</string>
+    <string name="library_delete_confirm">确认删除</string>
+    <string name="library_search_notebooks">搜索词本</string>
+    <string name="library_no_matching_notebooks">没有匹配的词本。</string>
+    <string name="library_name_duplicate">已有同名词本，请换一个名称。</string>
+    <string name="library_name_length">名称长度为 1–32 个字符。</string>
+    <string name="library_name">词本名称</string>
+    <string name="library_save_name">保存</string>
+    <plurals name="library_word_count">
+        <item quantity="other">%d 个单词</item>
+    </plurals>
+</resources>

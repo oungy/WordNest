@@ -53,6 +53,9 @@ internal fun SelectionSheet(
     useGlass: Boolean,
     onDismiss: () -> Unit,
     onConfirm: (Set<String>) -> Unit,
+    searchLabel: String = stringResource(R.string.search_books),
+    emptyLabel: String = stringResource(R.string.no_books_found),
+    error: String? = null,
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
     val inputMode = LocalInputModeManager.current
@@ -88,7 +91,7 @@ internal fun SelectionSheet(
             value = query,
             onValueChange = { query = it },
             modifier = Modifier.fillMaxWidth().focusRequester(searchFocus),
-            label = { Text(stringResource(R.string.search_books)) },
+            label = { Text(searchLabel) },
             shape = ControlShape,
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -96,7 +99,7 @@ internal fun SelectionSheet(
         )
         if (visibleOptions.isEmpty()) {
             Text(
-                text = stringResource(R.string.no_books_found),
+                text = emptyLabel,
                 modifier = Modifier.padding(vertical = 12.dp),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -108,7 +111,8 @@ internal fun SelectionSheet(
                 key(option.id) {
                     ChoiceRow(
                         title = option.title,
-                        description = listOfNotNull(option.description, option.progress).joinToString("\n"),
+                        description = listOfNotNull(option.description.takeIf { it.isNotBlank() }, option.progress)
+                            .joinToString("\n").ifBlank { null },
                         enabled = option.enabled,
                         multiple = true,
                         selected = option.id in draft,
@@ -134,6 +138,9 @@ internal fun SelectionSheet(
                     )
                 }
             }
+        }
+        if (error != null) {
+            Text(error, color = MaterialTheme.colorScheme.error)
         }
         StudyButton(
             label = stringResource(R.string.apply_selection),

@@ -4,12 +4,18 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.withTransaction
+import io.github.oungy.wordnest.data.local.study.LibraryRepository
+import io.github.oungy.wordnest.data.local.study.LibrarySnapshot
 import io.github.oungy.wordnest.data.local.study.StudyDashboard
 import io.github.oungy.wordnest.data.local.study.StudyDatabase
 import io.github.oungy.wordnest.data.local.study.StudyMode
 import io.github.oungy.wordnest.data.local.study.StudyRepository
 import io.github.oungy.wordnest.domain.Rating
 import java.time.LocalDate
+import java.util.UUID
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,9 +38,36 @@ internal data class StudyUiState(
 
 internal enum class StudyError { Load, Save, DayChanged }
 
-internal class StudyViewModel(application: Application) : AndroidViewModel(application) {
-    private val database = StudyDatabase.open(application)
+internal class StudyViewModel(application: Application, private val database: StudyDatabase) : AndroidViewModel(application) {
+    constructor(application: Application) : this(application, StudyDatabase.open(application))
+
+    private data class LibraryEdit(val id: String, val result: Deferred<LibrarySnapshot>)
+
     private val repository = StudyRepository(database)
+    private val library = LibraryRepository(database)
+    private var lastLibraryEdit: LibraryEdit? = null
+
+    suspend fun readLibrary(): LibrarySnapshot {
+        lastLibraryEdit?.result?.join()
+        return library.snapshot()
+    }
+
+    // The screen may be recreated between confirmation and commit.
+    fun submitLibraryEdit(change: suspend LibraryRepository.() -> Unit): String {
+        val id = UUID.randomUUID().toString()
+        val result = viewModelScope.async {
+            database.withTransaction {
+                library.change()
+                library.snapshot()
+            }
+        }
+        lastLibraryEdit = LibraryEdit(id, result)
+        return id
+    }
+
+    suspend fun awaitLibraryEdit(id: String): LibrarySnapshot? =
+        lastLibraryEdit?.takeIf { it.id == id }?.result?.await()
+
     private val mutableState = MutableStateFlow(StudyUiState())
     val state = mutableState.asStateFlow()
 
